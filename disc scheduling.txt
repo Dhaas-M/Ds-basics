@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int main()
+{
+    int arr[100],i,n,ini,th=0;
+    printf("enter no og requests:\n");
+    scanf("%d",&n);
+    printf("enter the request sequence:\n");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    
+    printf("enter initial value:\n");
+    scanf("%d",&ini);
+    
+    for(i=0;i<n;i++)
+    {
+        th=th+abs(arr[i]-ini);
+        ini=arr[i];
+    }
+    
+    printf("the head moment is %d",th);
+}

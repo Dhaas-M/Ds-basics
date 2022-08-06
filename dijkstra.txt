@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int i,j,arr[100][100],v[100],d[100],s,n;
+
+void create()
+{
+    printf("\tenter the adjacency matrix");
+    printf("\nenter the no of vertices:");
+    scanf("%d",&n);
+    for(i=1;i<=n;i++)
+    {
+        printf("\nthe elements of row %d:",i);
+        for(j=1;j<=n;j++)
+        {
+            scanf("%d",&arr[i][j]);
+            if(arr[i][j]==0)
+               arr[i][j]=999;
+        }
+    }
+}
+
+void dijkstra(int n,int arr[100][100],int s,int d[100])
+{
+    int i,v,c=1,min,visited[100];
+    for(i=1;i<=n;i++)
+    {
+        visited[i]=0;
+        d[i]=arr[s][i];
+    }
+    visited[s]=1;
+    d[s]=0;
+    while(c<=n)
+    {
+        min=999;
+        for(i=0;i<=n;i++)
+        {
+            if(d[s]<min && visited[i]==0)
+            {
+                min=d[s];
+               // printf("%d",min);
+                v=i;
+            }
+        }
+        visited[v]=1;
+        c++;
+        //relaxation
+        for(i=1;i<=n;i++)
+        {
+            if(d[i]>d[v]+arr[v][i])
+            {
+               d[i]=d[v]+arr[v][i];
+              // printf("%d",d[i]);
+            }
+        }
+    }
+}
+
+int main()
+{
+    create();
+    printf("\nenter the source vertex:");
+    scanf("%d",&s);
+    dijkstra(n,arr,s,d);
+    printf("\nthe shortest path from %d is",s);
+    for(i=1;i<=n;i++)
+        printf("\n%d->%d=%d",s,i,d[i]);
+}

@@ -1,0 +1,73 @@
+#include <stdio.h>
+
+    int arr[100],n,i,top,c,e;
+    void push();
+    void pop();
+    void disp();
+
+int main()
+{
+    top=-1;
+    printf("enter the size of stack:");
+    scanf("%d",&n);
+    do{
+        printf("\n1.push \n2.pop \n3.display \n4.exit");
+        printf("\nenter the choice:");
+        scanf("%d",&c);
+        switch(c)
+        {
+            case 1:
+            push();
+            break;
+            
+            case 2:
+            pop();
+            break;
+            
+            case 3:
+            disp();
+            break;
+            
+            case 4:
+            break;
+            
+        }
+    }while(c!=4);
+}
+
+void push(){
+    if(top==n-1)
+    {
+        printf("\nstack overflow");
+    }else{
+        printf("enter the element");
+        scanf("%d",&e);
+        top++;
+        arr[top]=e;
+    }
+}
+
+void pop(){
+    if(top==-1)
+    {
+        printf("\nstack underflow");
+    }
+    else{
+        printf("the popped element is %d",arr[top]);
+        top--;
+    }
+}
+
+void disp()
+{
+    if(top!=0)
+    {
+        for(i=top;i>=0;i--)
+        {
+            printf("%d ",arr[i]);
+        }
+    }
+    else{
+        printf("Empty!!!");
+    }
+}

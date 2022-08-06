@@ -1,0 +1,134 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *next,*prev;
+};
+
+struct node *temp,*newNode,*head;
+void additem();
+void search();
+void display();
+int size();
+
+void main()
+{
+    int c;
+    while(1)
+    {
+    printf("\n1.additem \n2.display \n3.search \n4.size \n5.delete");
+    printf("\nenter your choice:");
+    scanf("%d",&c);
+    switch(c)
+    {
+        case 1:
+        additem();
+        break;
+        
+        case 2:
+        display();
+        break;
+        
+        case 3:
+        search();
+        break;
+        
+        case 4:
+        printf("the size is %d",size());
+        break;
+        
+        case 5:
+        //delete();
+        break;
+        
+        case 6:
+        exit(0);
+    }
+    }
+}
+
+void additem()
+{
+    head=0;
+    int i=1;
+    while(i)
+    {
+    newNode=(struct node *)malloc(sizeof(struct node));
+    printf("\nenter the data:");
+    scanf("%d",&newNode->data);
+    if(head==0)
+    {
+        head=temp=newNode;
+        newNode->next=0;
+        newNode->prev=0;
+    }
+    else{
+        temp->next=newNode;
+        newNode->prev=temp;
+        newNode->next=0;
+        temp=newNode;
+    }
+    printf("\ndo you want to continue:");
+    scanf("%d",&i);
+    }
+}
+
+void display()
+{
+    temp=head;
+    printf("\nforwards ");
+    while(temp!=0)
+    {
+        printf("%d ",temp->data);
+        temp=temp->next;
+    }
+    printf("\nbackwards ");
+    temp=head;
+    while(temp->next!=0)
+    {
+        temp=temp->next;
+    }
+    while(temp!=0)
+    {
+        printf("%d ",temp->data);
+        temp=temp->prev;
+    }
+}
+
+int size()
+{
+    int s=0;
+    temp=head;
+    while(temp!=0)
+    {
+        s++;
+        temp=temp->next;
+    }
+    return s;
+}
+
+void search()
+{
+    int e,f=0;
+    printf("\nenter the element:");
+    scanf("%d",&e);
+    temp=head;
+    while(temp!=0)
+    {
+        if(temp->data==e)
+        {
+            f=1;
+        }
+         temp=temp->next;
+    }
+    if(f)
+    {
+        printf("element found");
+    }
+    else{
+        printf("not found");
+    }
+       
+    
+}

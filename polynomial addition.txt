@@ -1,0 +1,250 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct poly{
+    int po;
+    int ce;
+    struct poly * link;
+    
+};
+
+struct poly *node,*head,*temp,*temp1;
+struct poly *create();
+struct poly *disp(struct poly *);
+struct poly *sort(struct poly *);
+
+struct poly *create()
+{
+    head=0;
+    int c=1;
+    while(1)
+    {
+    node=(struct poly *)malloc(sizeof(struct poly));
+    printf("\nenter coefficient power and:");
+    scanf("%d %d",&node->ce,&node->po);
+    node->link=0;
+    if(head==0)
+    {
+        head=temp=node;
+    }
+    else{
+       temp->link=node;
+       temp=node;
+    }
+    printf("\ndo you want to continue:");
+    scanf("%d",&c);
+    if(c==0) break;
+    }
+    return head;
+}
+
+struct poly *disp(struct poly *head)
+{
+    temp=head;
+    int i=1;
+    while(temp!=0)
+    {
+        if(i!=1) printf("+");
+        
+        printf("%dX^%d",temp->ce,temp->po);
+        temp=temp->link;
+        i++;
+    }
+}
+
+struct poly *sort(struct poly *head)
+{
+    struct poly *t1,*t2;
+    temp=head;
+    for(;temp->ce!=0;temp=temp->link){
+        for(temp1=temp->link;temp1->ce!=0;temp1=temp1->link)
+        {
+            if(temp->po>temp1->po)
+            {
+               t1=temp->ce;
+               t2=temp->po;
+               temp->ce=temp1->ce;
+               temp->po=temp1->po;
+               temp1->ce=t1;
+               temp1->po=t2;
+            }
+        }
+    }
+    disp(head);
+}
+
+void main()
+{
+    struct poly *start1,*start2;
+    printf("\nEnter first polynomial:");
+    start1=create();
+    printf("\nEnter second polynomial:");
+    start2=create();
+    printf("\nfirst polynomial is:");
+    disp(start1);
+    printf("\nsecond polynomial is:");
+    disp(start2);
+    printf("\nsorted is:");
+    sort(start1);
+    
+}
+
+_______________________________________________________________________________________________________________________________________________________
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct poly{
+    int po;
+    int ce;
+    struct poly *link;
+    
+};
+
+struct poly *node,*head,*temp,*temp1;
+struct poly *create();
+struct poly *disp(struct poly *);
+struct poly *add(struct poly *,struct poly *);
+
+struct poly *create()
+{
+    head=0;
+    int c=1;
+    while(1)
+    {
+    node=(struct poly *)malloc(sizeof(struct poly));
+    printf("\nenter coefficient power and:");
+    scanf("%d %d",&node->ce,&node->po);
+    node->link=0;
+    if(head==0)
+    {
+        head=temp=node;
+    }
+    else{
+       temp->link=node;
+       temp=node;
+    }
+    printf("\ndo you want to continue:");
+    scanf("%d",&c);
+    if(c==0) break;
+    }
+    return head;
+}
+struct poly *disp(struct poly *head)
+{
+    temp=head;
+    int i=1;
+    while(temp!=0)
+    {
+        if(i!=1) printf("+");
+        
+        printf("%dX^%d",temp->ce,temp->po);
+        temp=temp->link;
+        i++;
+    }
+}
+
+struct poly *add(struct poly *head1,struct poly *head2)
+{
+    struct poly *p1,*p2,*sum,*head3,*t;
+    head3=0;
+    p1=head1;
+    p2=head2;
+    sum=(struct poly *)malloc(sizeof(struct poly));
+    while(p1!=0 && p2!=0)
+    {
+        if(p1->po==p2->po)
+        {
+            sum->ce=p1->ce+p2->ce;
+            sum->po=p1->po;
+            printf("%dx^%d ",p1->ce+p2->ce,p1->po);
+            p1=p1->link;
+            p2=p2->link;
+        }
+        else if(p1->po > p2->po)
+        {
+            sum->ce=p1->ce;
+            sum->po=p1->po;
+            printf("%dx^%d ",p1->ce,p1->po);
+            p1=p1->link;
+        }
+        else if(p2->po > p1->po)
+        {
+            sum->ce=p2->ce;
+            sum->po=p2->po;
+            printf("%dx^%d ",p2->ce,p2->po);
+            p2=p2->link;
+        }
+        
+        if(head3==0)
+        {
+            head3=t=sum;
+        }
+        else
+        {
+            t->link=sum;
+            t=t->link;
+        }
+        sum=(struct poly *)malloc(sizeof(struct poly));
+    }
+    if(p2==0)
+    {
+    while(p1!=0)
+    {
+        sum->ce=p1->ce;
+        sum->po=p1->po;
+        printf("%dx^%d ",p1->ce,p1->po);
+        p1=p1->link;
+        if(head3==0)
+        {
+            head3=t=sum;
+        }
+        else
+        {
+            t->link=sum;
+            t=t->link;
+        }
+        sum=(struct poly *)malloc(sizeof(struct poly));
+    }
+    }
+    if(p1==0)
+    {
+    while(p2!=0)
+    {
+        sum->ce=p2->ce;
+        sum->po=p2->po;
+        printf("%dx^%d ",p2->ce,p2->po);
+        p2=p2->link;
+        if(head3==0)
+        {
+            head3=t=sum;
+        }
+        else
+        {
+            t->link=sum;
+            t=t->link;
+        }
+        sum=(struct poly *)malloc(sizeof(struct poly));
+    }
+    }
+    disp(head3);
+}
+
+
+
+void main()
+{
+    struct poly *start1,*start2;
+    printf("\nEnter first polynomial:");
+    start1=create();
+    printf("\nEnter second polynomial:");
+    start2=create();
+    printf("\nfirst polynomial is:");
+    disp(start1);
+    printf("\nsecond polynomial is:");
+    disp(start2);
+    printf("\naddition of two polynomial is:");
+    add(start1,start2);
+ 
+    
+}

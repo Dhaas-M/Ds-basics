@@ -1,0 +1,38 @@
+int main()
+{
+    int n,i,f,l,m,arr[100],e;
+    printf("\n enter no of elements:");
+    scanf("%d",&n);
+    printf("\nenter %d integers",n);
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    f=0;
+    l=n-1;
+    m=(f+l)/2;
+    printf("\nenter the element to search");
+    scanf("%d",&e);
+    while(f<=l)
+    {
+    if(arr[m]==e)
+    {
+        printf("element found at %d",m+1);
+        break;
+    }
+    else if(e>arr[m])
+    {
+        f=m+1;
+    }
+    else
+    {
+        l=m-1;
+    }
+    m=(f+l)/2;
+    }
+    
+    if(f>l)
+    {
+        printf("element not found");
+    }
+}

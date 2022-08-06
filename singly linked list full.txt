@@ -1,0 +1,159 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node{
+    int data;
+    struct node *next;
+};
+
+struct node *head,*temp,*temp1,*newNode;
+void additem();
+void delitem();
+void search();
+int size();
+void display();
+void main()
+{
+while(1)
+{
+    printf("\n1.additem\n2.delitem\n3.display\n4.search\n5.size\n6.exit");
+    int ch;
+    printf("\nEnter your choice:");
+    scanf("%d",&ch);
+    switch(ch)
+    {
+        case 1:
+        additem();
+        break;
+        
+        case 2:
+        delitem();
+        break;
+        
+        case 3:
+        display();
+        break;
+        
+        case 4:
+        search();
+        break;
+        
+        case 5:
+        printf("\nThe size is %d",size());
+        break;
+        
+        case 6:
+        exit(0);
+    }
+}
+}
+
+void additem()
+{
+    head=0;
+    int c=1;
+    while(c)
+    {
+    newNode=(struct node *)malloc(sizeof(struct node));
+    printf("\nEnter the data:");
+    scanf("%d",&newNode->data);
+    newNode->next=0;
+    if(head==0)
+    {
+        head=temp=newNode;
+    }
+    else
+    {
+        temp->next=newNode;
+        temp=newNode;
+    }
+    printf("\nDo you want to continue:");
+    scanf("%d",&c);
+    }
+}
+
+void display()
+{
+    temp=head;
+    while(temp!=0)
+    {
+        printf("%d ",temp->data);
+        temp=temp->next;
+    }
+    
+}
+
+int size(){
+    int count=0;
+    temp=head;
+    while(temp!=0)
+    {
+        count++;
+        temp=temp->next;
+    }
+    
+    return count;
+}
+
+void search()
+{
+    printf("\nenter the element");
+    int ele;
+    scanf("%d",&ele);
+    int found=0;
+    temp=head;
+    while(temp!=0)
+    {
+        if(temp->data==ele)
+        {
+            found=1;
+        }
+        temp=temp->next;
+    }
+    if (found)
+    {
+        printf("\nelement found");
+    }
+    else
+    {
+        printf("\nelement not found");
+    }
+    
+}
+
+void delitem()
+{
+    struct node *prev;
+    temp=prev=head;
+    int p;
+    printf("\nenter the data to delete:");
+    scanf("%d",&p);
+    if(head==0)
+    {
+        printf("\nNo records found");
+        return;
+    }
+    while((temp!=0)&&(temp->data!=p)){
+        prev=temp;
+        temp=temp->next;
+    }
+    if(temp==0)
+    {
+        printf("\ndata not found");
+    }
+    if(temp==head)
+    {
+        head=head->next;
+    }
+    else
+    {
+        prev->next=temp;
+        if(temp->next==0)
+        {
+            temp1=prev;
+        }
+    }
+    free(temp);
+    
+    display();
+}

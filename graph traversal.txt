@@ -1,0 +1,127 @@
+DFS
+
+#include <stdio.h>
+#include <stdlib.h>
+#define N 100
+
+int n,arr[N][N],s,v[N]={0};
+
+void create();
+void dfs();
+
+void create()
+{
+    int c,o,d,e;
+    printf("the no of vertices:");
+    scanf("%d",&n);
+    e=n*(n-1);
+    for(c=1;c<e;c++)
+    {
+       printf("enter the edge %d: [(-1,-1) to exit]:",c);
+       scanf("%d %d",&o,&d);
+       if(o==-1 && d==-1) 
+           break;
+       arr[o][d]=1;
+    }
+}   
+
+void dfs(int arr[N][N],int v[N],int s)
+{
+    int st[N];
+    int t=-1;
+    for(int k=0;k<N;k++)
+        v[k]=0;
+        
+    st[++t]=s;
+    v[s]=1;
+    while(t>-1)
+    {
+        s=st[t--];
+        printf("%d ",s);
+        for(int j=0;j<N;j++)
+        {
+            if(arr[s][j] &&v[j]==0)
+            {
+                v[j]=1;
+                st[++t]=j;
+            }
+        }
+    }
+    
+}
+
+int main(){
+    create();
+    printf("\nenter the starting edge:");
+    scanf("%d",&s);
+    dfs(arr,v,s);
+    
+}
+
+****************************************************************************************************
+
+BFS
+
+#include <stdio.h>
+#include <stdlib.h>
+#define N 100
+
+int n,arr[N][N],s,v[N]={0};
+
+void create();
+void bfs();
+
+void create()
+{
+    int c,o,d,e;
+    printf("the no of vertices:");
+    scanf("%d",&n);
+    e=n*(n-1);
+    for(c=1;c<e;c++)
+    {
+       printf("enter the edge %d: [(-1,-1) to exit]:",c);
+       scanf("%d %d",&o,&d);
+       if(o==-1 && d==-1) 
+           break;
+       arr[o][d]=1;
+    }
+    
+    // for(int i=0;i<e;i++) 
+    //      for(int j=0;j<e;j++)
+    //         printf("%d",arr[i][j]);
+}
+
+void bfs(int arr[N][N],int v[N],int s)
+{
+   int a, f=-1,r=-1,q[N];
+   for(a=0;a<n;a++) 
+       v[a]=0;
+       
+   q[++r]=s;
+   f++;
+   v[s]=1;
+   
+   while(r>=f)
+   {
+       s=q[f++];
+       printf("%d ",s);
+       for(int j=0;j<N;j++)
+       {
+          if(arr[s][j] && v[j]==0)
+          {
+              v[j]=1;
+              q[++r]=j;
+          }
+       }
+   }
+       
+}
+
+
+int main(){
+    create();
+    printf("\nenter the starting edge:");
+    scanf("%d",&s);
+    bfs(arr,v,s);
+    
+}

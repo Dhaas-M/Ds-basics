@@ -1,0 +1,224 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *left,*right;
+}*t,*temp;
+
+struct node *create(struct node *,int);
+struct node *insert(struct node *,int);
+void preorder(struct node *);
+void inorder(struct node *);
+void postorder(struct node *);
+struct node *find(struct node *,int);
+struct node *findmin(struct node *);
+struct node *findmax(struct node *);
+
+//struct node *t,*temp;
+int e;
+
+void main()
+{
+  int c;
+  do{
+      printf("\n1.create \n2.insert \n3.preorder \n4.inorder \n5.postorder \n6.find \n7.findmin \n8.findmax");
+      printf("\nenter the choice:");
+      scanf("%d",&c);
+      switch(c)
+      {
+          case 1:
+          printf("\nenter the data:");
+          scanf("%d",&e);
+          t=create(t,e);
+          inorder(t);
+          break;
+          
+          case 2:
+          printf("\nenter the data:");
+          scanf("%d",&e);
+          t=insert(t,e);
+          inorder(t);
+          break;
+          
+          case 3:
+          printf("\npreorder is: ");
+          preorder(t);
+          break;
+          
+          case 4:
+          printf("\ninorder is: ");
+          inorder(t);
+          break;
+
+          case 5:
+          printf("\npostorder is: ");
+          postorder(t);
+          break; 
+          
+          case 6:
+          printf("\nenter the element:");
+          scanf("%d",&e);
+          temp=find(t,e);
+          if(temp->data==e)
+          {
+              printf("\n%d found at %d",e,temp);
+          }
+          else
+          {
+              printf("\n%d not in tree",e);
+          }
+          break;
+          
+          case 7:
+          temp=findmin(t);
+          printf("\nthe minimum element in tree is %d",temp->data);
+          break;
+          
+          case 8:
+          temp=findmax(t);
+          printf("\nthe maximun element in tree is %d",temp->data);
+          break;
+          
+          
+          case 9:
+          exit(0);
+      }
+  } while(c<=10);
+}
+
+
+struct node *create(struct node *t,int e)
+{
+    if(t==0)
+    {
+        t=(struct node *)malloc(sizeof(struct node));
+        t->data=e;
+        t->left=0;
+        t->right=0;
+        return t;
+    }
+}
+
+struct node *insert(struct node *t,int e)
+{
+    if(t==0)
+    {
+        t=(struct node *)malloc(sizeof(struct node));
+        t->data=e;
+        t->left=0;
+        t->right=0;
+        return t;
+    }
+    else 
+    {
+        if(e<t->data)
+        {
+            t->left=insert(t->left,e);
+        }
+        else{
+            if(e>t->data)
+            {
+                t->right=insert(t->right,e);
+            }
+            else
+            {
+                if(e==t->data)
+                {
+                    printf("\nelement already exist");
+                }
+            }
+        }
+        return t;
+    }
+}
+
+void inorder(struct node *t)
+{
+    if(t!=0)
+    {
+        inorder(t->left);
+        printf("%d ",t->data);
+        inorder(t->right);
+    }
+}
+
+void preorder(struct node *t)
+{
+    if(t!=0)
+    {
+        printf("%d ",t->data);
+        preorder(t->left);
+        preorder(t->right);
+    }
+}
+
+void postorder(struct node *t)
+{
+    if(t!=0)
+    {
+        postorder(t->left);
+        postorder(t->right);
+        printf("%d ",t->data);
+    }
+}
+
+struct node *find(struct node *t,int e)
+{
+    if(t==0)
+       return 0;
+    if (e<t->data)
+    {
+        return(find(t->left,e));
+    }
+    else
+    {
+        if(e>t->data)
+        {
+            return(find(t->right,e));
+        }
+        else
+        {
+            return t;
+        }
+    }
+}
+
+struct node *findmin(struct node *t)
+{
+    if(t==0)
+    {
+        return 0;
+    }
+    else
+    {
+        if(t->left==0)
+        {
+            return t;
+        }
+        else 
+        {
+            return(findmin(t->left));
+        }
+    }
+}
+
+struct node *findmax(struct node *t)
+{
+    if(t==0)
+    {
+        return 0;
+    }
+    else
+    {
+        if(t->right==0)
+        {
+            return t;
+        }
+        else
+        {
+            return(findmax(t->right));
+        }
+    }
+}
